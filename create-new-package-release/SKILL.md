@@ -1,3 +1,7 @@
+---
+name: create-new-package-release
+description: Update a Debian package for a new upstream release
+---
 # Skill to update a Debian package for a new upstream release
 
 This skill describes how to update a non-native Debian package for a new release of its upstream project.
