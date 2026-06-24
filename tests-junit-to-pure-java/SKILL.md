@@ -5,7 +5,7 @@ description: Convert JUnit-based tests from openssl-fips-java to pure Java tests
 
 # Converting a JUnit test to a pure Java test
 
-## This skill is specific to the openssl-fips-java provider which is available at https://github.com/canonical/openssl-fips-java. The CI on this provider runs JUnit tests with openssl and its FIPS module built from source and installed as test dependencies. However, we also need to run the same tests on an Ubuntu Pro instance, which has openssl FIPS installed as a system package. The current infrastructure that I need to use for Ubuntu Pro has severe restrictions on outbound network access, which makes it impossible to run JUnit tests that require downloading dependencies from Maven Central. Therefore, I need to convert the JUnit tests to pure Java tests that do not require any external dependencies. Given below are steps to convert a JUnit test to a pure Java test.
+This skill is specific to the openssl-fips-java provider which is available at https://github.com/canonical/openssl-fips-java. The CI on this provider runs JUnit tests with openssl and its FIPS module built from source and installed as test dependencies. However, we also need to run the same tests on an Ubuntu Pro instance, which has openssl FIPS installed as a system package. The current infrastructure that I need to use for Ubuntu Pro has severe restrictions on outbound network access, which makes it impossible to run JUnit tests that require downloading dependencies from Maven Central. Therefore, I need to convert the JUnit tests to pure Java tests that do not require any external dependencies. Given below are steps to convert a JUnit test to a pure Java test.
 
 ## 1. Clone the openssl-fips-java and fips-tests repository
 ```
