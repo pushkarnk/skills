@@ -23,6 +23,8 @@ Here are steps to generate the script:
 
    Set up the http://squid.internal:3128 as the HTTP_PROXY and HTTPS_PROXY environment variables.
 
+   DO NOT configure the proxy directly in apt.
+
 2. Create a new file `setup-ubuntu-pro-fips-test.sh` and generate commands for the rest  of the steps in this file.
 
 3. Add a command to run`sudo pro status` and ensure `fips-updates` are enabled. If not, exit and report failure.
