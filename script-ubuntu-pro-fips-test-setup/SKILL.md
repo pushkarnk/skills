@@ -38,7 +38,7 @@ Here are steps to generate the script:
 ```
 gpg --no-default-keyring --keyring /tmp/openjdk-fips-tmp.gpg \ --keyserver hkp://keyserver.ubuntu.com --recv-keys $KEYID
 
-gpg --no-default-keyring --keyring /tmp/openjdk-fips-tmp.gpg \ --export 0D2923EA4C8DAFFE \ | sudo tee /etc/apt/keyrings/openjdk-fips.gpg > /dev/null 
+gpg --no-default-keyring --keyring /tmp/openjdk-fips-tmp.gpg \ --export $KEYID \ | sudo tee /etc/apt/keyrings/openjdk-fips.gpg > /dev/null 
 
 rm -f /tmp/openjdk-fips-tmp.gpg
 ```
