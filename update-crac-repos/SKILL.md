@@ -42,7 +42,7 @@ Follow these steps for each of the three packages -17, -21 and -25:
 1. Clone the openjdk-NN-crac repository
 2. Add https://github.com/openjdk/jdkNNu as a remote (e.g: https://github.com/openjdk/jdk17u)
 3. Get the latest tag from `openjdk/jdkNNu` with "-ga" in it , and now get the tag previous to it.
-   For example: the latest ga tag is jdk-17.0.20-ga, and the previous tag is jdk-17.0.20+8. Note this tag as the `merge-tag`.
+   For example: the latest ga tag is jdk-17.0.20-ga, and the correct tag is jdk-17.0.20+8 which has the _same_ commit hash (could be before or after the ga tag). Note this tag as the `merge-tag`.
 4. Create a new branch named `crac-<merge-tag>`.
 5. Run a git merge: `git merge <merge-tag>`
 6. If there are merge conflicts, resolve them and complete the merge.
@@ -52,14 +52,18 @@ Follow these steps for each of the three packages -17, -21 and -25:
      But it will also provide the `apt` commands to install those dependencies. Keep installing the build dependencies and repeating this command until it passes.
    - Run `make images`
    - If the build fails, abort and report failure.
+   - After this command works properly, you can also configure `jtreg` directly with `bash configure --with-jtreg=/usr/share/jtreg` or some other installation directory.
 8. Run tests:
-   - Install `jtreg7` using `apt` if needed
+   - Install `jtregN` using `apt` if needed. Package -17 uses `jtreg7` and packages -21 and -25 use `jtreg8`
    - Install `crac-criu` using `apt`. Copy `/usr/sbin/crac-criu` into `build/linux-x86_64-server-release/jdk/lib`
    - Run these two commands:
      - `sudo chown root:root build/linux-x86_64-server-release/jdk/lib/criu`
      - `sudo chmod u+s build/linux-x86_64-server-release/jdk/lib/criu`
-   - Run the crac tests: ` sudo jtreg -v1 -testjdk:build/linux-x86_64-server-release/jdk/ test/jdk/jdk/crac`
+   - Run the crac tests: ` sudo jtreg -v1 -agentvm -testjdk:build/linux-x86_64-server-release/jdk/ test/jdk/jdk/crac`
      Note: `sudo` is necessary on a corporate laptop which has authd-managed Ubuntu.
+     Note: `-agentvm` is required to replicate the test environment that CI currently uses.
    - Report the failing tests.
    - Next, replace `build/linux-x86_64-server-release/jdk/lib/criu` by `crac-criu/criu/criu` for each of
      openjdk-{17,21,25}-crac and re-run the tests. Report any new failures.
+
+> Note: The CI for testing openjdk-{17,21,25}-crac currently uses the `make test TEST='jdk/crac'` fixture. This may present alternative test results that what can be replicated locally. Additionally, this test uses an alternative location for `criu` than previously tested against so it may feature failures locally due to a missing `criu` executable.
